@@ -20,7 +20,7 @@ public class RekeningRepository {
         return listRekening;
     }
 
-    public Rekening getRekeningByNoRek(String NomorRekening){
+    public Rekening getRekeningByNomor(String NomorRekening){
         for(Rekening rek : listRekening){
             if(rek.getNoRek().equals(NomorRekening)){
                 return rek;

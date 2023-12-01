@@ -27,7 +27,7 @@ public class RekeningServiceImpl implements RekeningService {
     }
 
     public Rekening getRekeningByNoRek(String noRek){
-        return rekeningRepository.deleteRekeningByNomor(noRek);
+        return rekeningRepository.getRekeningByNomor(noRek);
     }
 
     public Rekening deleteRekeningByNoRek(String noRek){

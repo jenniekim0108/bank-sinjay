@@ -41,6 +41,7 @@ public class RekeningController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @DeleteMapping("/{noRek}")
     public ResponseEntity<CommonResponse<Rekening>> deleteRekeningByNomor(@PathVariable String noRek){
         Rekening rek = rekeningService.deleteRekeningByNoRek(noRek);
         CommonResponse<Rekening> response = new CommonResponse<>("Succesfully deleted correspondent Rekening", HttpStatus.OK.value(), rek);
