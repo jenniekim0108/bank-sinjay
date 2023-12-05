@@ -1,5 +1,6 @@
 package com.enigma.controller;
 
+import com.enigma.dto.request.NewRekening;
 import com.enigma.dto.response.CommonResponse;
 import com.enigma.entity.Rekening;
 import com.enigma.service.RekeningService;
@@ -22,15 +23,16 @@ public class RekeningController {
 
     @GetMapping
     public ResponseEntity<CommonResponse<List<Rekening>>> getAllRekening(){
+//        List<Rekening> rek = rekeningService.getListRekening(page);
         List<Rekening> rek = rekeningService.getListRekening();
         CommonResponse<List<Rekening>> response = new CommonResponse<>("Succesfully shown all Rekening", HttpStatus.OK.value(), rek);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<CommonResponse<Rekening>> tambahRekening(@RequestBody Rekening rekening){
-        rekeningService.addRekening(rekening);
-        CommonResponse<Rekening> response = new CommonResponse<>("Succesfully add new Rekening", HttpStatus.OK.value(), rekening);
+    public ResponseEntity<CommonResponse<Rekening>> tambahRekening(@RequestBody NewRekening rekening){
+        Rekening hasilrek = rekeningService.addRekening(rekening);
+        CommonResponse<Rekening> response = new CommonResponse<>("Succesfully add new Rekening", HttpStatus.OK.value(), hasilrek);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

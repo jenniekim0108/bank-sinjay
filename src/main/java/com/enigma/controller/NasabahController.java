@@ -22,14 +22,14 @@ public class NasabahController {
     }
 
     @GetMapping
-    public ResponseEntity<CommonResponse<List<Nasabah>>> findAllNasabah(){
-        List<Nasabah> ns = nasabahService.GetListNasabah();
+    public ResponseEntity<CommonResponse<List<Nasabah>>> findAllNasabah(@RequestParam(defaultValue = "0") int page){
+        List<Nasabah> ns = nasabahService.GetListNasabah(page);
         CommonResponse<List<Nasabah>> response = new CommonResponse<>("Successfully shown all Nasabah", HttpStatus.OK.value(),ns);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CommonResponse<Nasabah>> getNasabahById(@PathVariable Integer id){
+    public ResponseEntity<CommonResponse<Nasabah>> getNasabahById(@PathVariable String id){
         Nasabah ns =  nasabahService.GetListNasabahById(id);
         CommonResponse<Nasabah> response = new CommonResponse<>("Succesfully shown Nasabah by Id", HttpStatus.OK.value(),ns);
         return  new ResponseEntity<>(response, HttpStatus.OK);
@@ -46,9 +46,23 @@ public class NasabahController {
 
 //    @GetMapping("/delete/{id}")
     @DeleteMapping("/{id}")
-    public ResponseEntity<CommonResponse<Nasabah>> deleteNasabah(@PathVariable Integer id){
-        Nasabah ns = nasabahService.DeleteNasabahById(id);
-        CommonResponse<Nasabah> response = new CommonResponse<>("Succesfully deleted corresponding nasabah", HttpStatus.OK.value(),ns);
+    public ResponseEntity<CommonResponse<Void>> deleteNasabah(@PathVariable String id){
+        nasabahService.DeleteNasabahById(id);
+        CommonResponse<Void> response = new CommonResponse<>("Succesfully deleted corresponding nasabah", HttpStatus.OK.value(),null);
+        return  new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/address/{addr}")
+    public ResponseEntity<CommonResponse<List<Nasabah>>> getNasabahByAddress(@PathVariable(name = "addr") String address){
+        List<Nasabah> ns = nasabahService.GetListNasabahByAddress(address);
+        CommonResponse<List<Nasabah>>  response = new CommonResponse<>("Succesfully shown nasabah by their address", HttpStatus.OK.value(),ns);
+        return  new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/cif/{cif}")
+    public ResponseEntity<CommonResponse<List<Nasabah>>> getNasabahByCif(@PathVariable String cif){
+        List<Nasabah> ns = nasabahService.GetListNasabahByCif(cif);
+        CommonResponse<List<Nasabah>>  response = new CommonResponse<>("Succesfully shown nasabah by their cif", HttpStatus.OK.value(),ns);
         return  new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

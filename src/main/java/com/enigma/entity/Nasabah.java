@@ -1,14 +1,31 @@
 package com.enigma.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "nasabah")
 public class Nasabah {
-    private int id;
+    @Id
+    @GenericGenerator(name="uuid", strategy = "uuid")
+    @GeneratedValue(generator = "uuid") //panjang 32 karakter, dan diklaim tidak akan duplikat`
+//       @GeneratedValue(strategy = GenerationType.IDENTITY) - for integer type of ID
+    private String id;
+    @Column
     private String cif;
     private String name;
     private String phoneNumber;
     private String address;
     private Boolean isActive;
 
-    public Nasabah(int id, String cif, String name, String phoneNumber, String address, Boolean isActive) {
+    @OneToMany(mappedBy = "nasabah")
+    List<Rekening> lstRekening;
+
+//    constructor bersifat opsional, kalau ga dibuat maka defaultnya kosong
+//    constructor yang berisi seluruh parameter, tapi baiknya buat juga constructor default
+    public Nasabah(String id, String cif, String name, String phoneNumber, String address, Boolean isActive) {
         this.id = id;
         this.cif = cif;
         this.name = name;
@@ -16,11 +33,20 @@ public class Nasabah {
         this.address = address;
         this.isActive = isActive;
     }
-    public int getId() {
+
+    public Nasabah(List<Rekening> lstRekening) {
+        this.lstRekening = lstRekening;
+    }
+
+
+    //    spring butuh public constructor
+    public Nasabah(){
+    }
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -62,6 +88,15 @@ public class Nasabah {
 
     public void setIsActive(Boolean isActive){
         this.isActive = isActive;
+    }
+
+
+    public List<Rekening> getLstRekening() {
+        return lstRekening;
+    }
+
+    public void setLstRekening(List<Rekening> lstRekening) {
+        this.lstRekening = lstRekening;
     }
 
 }

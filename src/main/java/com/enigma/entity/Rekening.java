@@ -1,15 +1,22 @@
 package com.enigma.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name="rekening")
 public class Rekening {
 
-    private String id;
-
-    public String getId() {
-        return id;
-    }
+    @Id
     private String noRek;
     private String jenisRek;
     private Integer saldo;
+
+    @ManyToOne
+    @JoinColumn(name="nasabah_id")
+    @JsonBackReference
+    Nasabah nasabah;
 
     public Rekening(String noRek, String jenisRek, Integer saldo) {
 //        this.id = id;
@@ -18,8 +25,17 @@ public class Rekening {
         this.saldo = saldo;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public Rekening(String noRek) {
+//        this.id = id;
+        this.noRek = noRek;
+    }
+
+    public Rekening(){
+
+    }
+
+    public Rekening(Nasabah nasabah) {
+        this.nasabah = nasabah;
     }
 
     public String getNoRek() {
@@ -46,5 +62,13 @@ public class Rekening {
         this.saldo = saldo;
     }
 
+
+    public Nasabah getNasabah() {
+        return nasabah;
+    }
+
+    public void setNasabah(Nasabah nasabah) {
+        this.nasabah = nasabah;
+    }
 
 }

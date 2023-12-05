@@ -2,6 +2,7 @@ package com.enigma.repository;
 
 import com.enigma.entity.Nasabah;
 import com.enigma.entity.Rekening;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

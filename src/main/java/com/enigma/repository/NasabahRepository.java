@@ -11,17 +11,17 @@ public class NasabahRepository {
 
     public Nasabah save(Nasabah nasabah) {
         //membuat id auto increment
-        nasabah.setId(listNasabah.size() + 1);
+//        nasabah.setId(listNasabah.size() + 1);
         nasabah.setIsActive(true);
         listNasabah.add(nasabah);
         return nasabah;
     }
 
-    public List<Nasabah> getAll() {
+    public List<Nasabah> getAll(int page) {
         return listNasabah;
     }
 
-    public Nasabah getId(Integer targetId) {
+    public Nasabah getId(String targetId) {
 //        for (int i = 0; i < listNasabah.size(); i++) {
 //            Nasabah ns = listNasabah.get(i);
 //            Integer currentId = ns.getId();
@@ -30,14 +30,14 @@ public class NasabahRepository {
 //            }
 //        }
         for(Nasabah ns : listNasabah){
-            if (ns.getId() == targetId){
+            if (ns.getId().equals(targetId)){
                 return ns;
             }
         }
         return null;
     }
 
-    public Nasabah deleteId(Integer targetId){
+    public Nasabah deleteId(String targetId){
         for(Nasabah ns : listNasabah){
             if(ns.getId() == targetId){
                 listNasabah.remove(ns);
